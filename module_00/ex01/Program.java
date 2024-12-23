@@ -7,7 +7,6 @@ public class Program {
     public static void main(String[] args) {
 
         int number = 0;
-        int iterations = 0;
         boolean isPrime = true;
         double squareRout = 0;
         int i = 0;
@@ -16,7 +15,7 @@ public class Program {
         try{
             Scanner Scanner = new Scanner(System.in);
 
-            System.out.print("-> ");
+            System.out.printl("-> ");
             number = Scanner.nextInt();
             if (number <= 1){
                 System.out.println("IllegalArgument");
@@ -32,9 +31,12 @@ public class Program {
             }
 
             System.out.format(" %b  %d\n", isPrime, i - 1);
+            Scanner.close();
 
         } catch(Exception ex) {
             System.err.println("Error");
+            Scanner.close();
+            System.exit(-1);
         }
 
     }

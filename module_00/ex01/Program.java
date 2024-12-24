@@ -10,10 +10,10 @@ public class Program {
         boolean isPrime = true;
         double squareRout = 0;
         int i = 0;
+        Scanner Scanner = new Scanner(System.in);
 
 
         try{
-            Scanner Scanner = new Scanner(System.in);
 
             System.out.printl("-> ");
             number = Scanner.nextInt();

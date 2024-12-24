@@ -42,24 +42,25 @@ public class Program {
     public static void main(String[] args){
 
         int number = 0;
-        Scanner Scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         int count = 0;
         
         try{
             while(number != STOP){
                 System.out.print("-> ");
-                number = Scanner.nextInt();
+                number = scanner.nextInt();
                 if (isPrime(calcSumDigits(number))){
                     count++;
                 }
+                scanner.nextLine();
             }
 
             System.out.format(" %s %d", "Count of coffee-request : ", count);
-            Scanner.close();
+            scanner.close();
 
         } catch(Exception ex) {
             System.err.println("Error");
-            Scanner.close();
+            scanner.close();
             System.exit(-1);
         }
 

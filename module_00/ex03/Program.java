@@ -5,7 +5,7 @@ public class Program {
     private static final String STOP = "42";
 
 
-    static void display(int grade, int week) {
+    private static void display(int grade, int week) {
         System.out.format("Week %d ", week);
         while (grade > 0) {
             System.out.print("=");
@@ -14,7 +14,7 @@ public class Program {
         System.out.println(">");
     }
 
-    static int reverse(int number) {
+    private static int reverse(int number) {
         int reverse = 0;
         while (number > 0) {
             reverse = (reverse * 10) + (number % 10);

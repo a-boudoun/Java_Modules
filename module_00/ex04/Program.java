@@ -1,94 +1,76 @@
-
-// import java.util.Scanner;
-
-
-
-// public class Program {
-//     public static void main(String[] args) {
-//         Scanner scanner = new Scanner(System.in);
-//         String input = scanner.nextLine();
-
-//         if (input.length() == 0 || input.length() > 100) {
-//             System.out.println("IllegalArgument");
-//             System.exit(-1);
-//         }
-
-//         char[] charArray = input.toCharArray();
-        
-//     }
-// }
-
 import java.util.Scanner;
 
-public class Program {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine(); // Read input until newline
-        scanner.close();
+class Program {
 
-        int[] frequencies = new int[65536]; // Array to store character frequencies
+    private static final int MAX_BPM = 65536;
 
-        // Step 1: Count character frequencies
-        for (char c : input.toCharArray()) {
-            frequencies[c]++;
-        }
 
-        // Step 2: Create an array to store characters and their frequencies
-        CharFrequency[] charFrequencies = new CharFrequency[65536];
-        int count = 0; // To count the valid characters
-        for (int i = 0; i < frequencies.length; i++) {
-            if (frequencies[i] > 0) {
-                charFrequencies[count++] = new CharFrequency((char) i, frequencies[i]);
-            }
-        }
-
-        // Step 3: Sort by frequency (descending) and lexicographic order if equal
-        CharFrequency[] topChars = new CharFrequency[count];
-        System.arraycopy(charFrequencies, 0, topChars, 0, count);
-
-        java.util.Arrays.sort(topChars, 0, count, (a, b) -> {
-            if (b.frequency != a.frequency) {
-                return b.frequency - a.frequency; // Descending frequency
-            }
-            return Character.compare(a.character, b.character); // Lexicographic
-        });
-
-        // Step 4: Extract top 10 characters
-        int topCount = Math.min(10, count);
-        CharFrequency[] topTen = new CharFrequency[topCount];
-        System.arraycopy(topChars, 0, topTen, 0, topCount);
-
-        // Step 5: Determine maximum height of histogram
-        int maxFrequency = topTen[0].frequency;
-        int scaleFactor = Math.max(maxFrequency / 10, 1);
-
-        // Step 6: Print the histogram
-        for (int height = 10; height > 0; height--) {
-            for (int i = 0; i < topCount; i++) {
-                if (topTen[i].frequency / scaleFactor >= height) {
-                    System.out.print("# ");
+    private static void display(char[] topChars, int[] topCounts, double histogramScale) {
+        for (int i = 11; i > 0; i--) {
+            for (int j = 0; j < 10; j++) {
+                if (topCounts[j] == 0) {
+                    continue;
+                }
+                if ((int) (topCounts[j] / histogramScale) + 1 == i) {
+                    System.out.print(topCounts[j] + "  ");
+                } else if ((int) (topCounts[j] / histogramScale) >= i) {
+                    System.out.print("#  ");
                 } else {
-                    System.out.print("  ");
+                    System.out.print("   ");
                 }
             }
             System.out.println();
         }
 
-        // Step 7: Print the characters at the bottom
-        for (int i = 0; i < topCount; i++) {
-            System.out.print(topTen[i].character + " ");
+
+        for (int i = 0; i < 10; i++) {
+            if (topChars[i] == 0) {
+                continue;
+            }
+            System.out.print(topChars[i] + "  ");
         }
-        System.out.println();
     }
 
-    // Helper class to store a character and its frequency
-    static class CharFrequency {
-        char character;
-        int frequency;
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] counts = new int[MAX_BPM];
+        int maxCount = 0;
+        char[] topChars = new char[10];
+        int[] topCounts = new int[10];
+        double histogramScale = 1;
 
-        CharFrequency(char character, int frequency) {
-            this.character = character;
-            this.frequency = frequency;
+
+        String line = scanner.nextLine();
+        scanner.close();
+
+        char[] charArray = line.toCharArray();
+
+        for (int i = 0; i < charArray.length; i++) {
+            counts[charArray[i]]++;
+            if (counts[charArray[i]] > maxCount) {
+                maxCount = counts[charArray[i]];
+            }
         }
+
+        for (int i = 0; i < 10; i++) {
+            int max = 0;
+            int maxIndex = 0;
+            for (int j = 0; j < MAX_BPM; j++) {
+                if (counts[j] > max) {
+                    max = counts[j];
+                    maxIndex = j;
+                }
+            }
+            topChars[i] = (char) maxIndex;
+            topCounts[i] = max;
+            counts[maxIndex] = -1;
+        }
+
+
+        if (maxCount > 10) {
+            histogramScale = (double) maxCount / 10.0;
+        }
+
+        display(topChars, topCounts, histogramScale);       
     }
 }

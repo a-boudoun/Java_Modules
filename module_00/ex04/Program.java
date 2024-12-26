@@ -33,7 +33,7 @@ class Program {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int[] counts = new int[MAX_BPM];
+        int[] occurCounts = new int[MAX_BPM];
         int maxCount = 0;
         char[] topChars = new char[10];
         int[] topCounts = new int[10];
@@ -46,24 +46,24 @@ class Program {
         char[] charArray = line.toCharArray();
 
         for (int i = 0; i < charArray.length; i++) {
-            counts[charArray[i]]++;
-            if (counts[charArray[i]] > maxCount) {
-                maxCount = counts[charArray[i]];
+            occurCounts[charArray[i]]++;
+            if (occurCounts[charArray[i]] > maxCount) {
+                maxCount = occurCounts[charArray[i]];
             }
         }
 
         for (int i = 0; i < 10; i++) {
-            int max = 0;
-            int maxIndex = 0;
+            int highCount = 0;
+            int highIndex = 0;
             for (int j = 0; j < MAX_BPM; j++) {
-                if (counts[j] > max) {
-                    max = counts[j];
-                    maxIndex = j;
+                if (occurCounts[j] > highCount) {
+                    highCount = occurCounts[j];
+                    highIndex = j;
                 }
             }
-            topChars[i] = (char) maxIndex;
-            topCounts[i] = max;
-            counts[maxIndex] = -1;
+            topChars[i] = (char) highIndex;
+            topCounts[i] = highCount;
+            occurCounts[highIndex] = -1;
         }
 
 

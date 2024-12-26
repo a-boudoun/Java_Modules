@@ -39,7 +39,7 @@ class Program {
         int[] topCounts = new int[10];
         double histogramScale = 1;
 
-
+        System.out.print("-> ");
         String line = scanner.nextLine();
         scanner.close();
 

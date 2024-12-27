@@ -15,10 +15,10 @@ public class Program {
 
         try{
 
-            System.out.printl("-> ");
+            System.out.println("-> ");
             number = Scanner.nextInt();
             if (number <= 1){
-                System.out.println("IllegalArgument");
+                System.err.println("IllegalArgument");
                 System.exit(-1);
             }
 

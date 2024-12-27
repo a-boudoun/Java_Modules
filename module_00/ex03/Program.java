@@ -35,7 +35,7 @@ public class Program {
                     break;
                 }
                 if (!week.equals("Week " + (weekCount))){
-                    System.out.println("IllegalArgument");
+                    System.err.println("IllegalArgument");
                     System.exit(-1);
                 }
                 int min = 9;
@@ -43,7 +43,7 @@ public class Program {
                 for (int j = 0; j < 5; j++){
                     int grade = scanner.nextInt();
                     if (grade < 1 || grade > 9){
-                        System.out.println("IllegalArgument");
+                        System.err.println("IllegalArgument");
                         System.exit(-1);
                     }
                     min = grade < min ? grade : min;
@@ -63,7 +63,7 @@ public class Program {
             }
 
         } catch( Exception e){
-            System.out.println("Error");
+            System.err.println("Error");
             System.exit(-1);
         }
     }

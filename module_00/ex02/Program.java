@@ -5,7 +5,7 @@ public class Program {
     private static final int STOP = 42;
 
 
-    public static int calcSumDigits(int number){
+    private static int calcSumDigits(int number){
         
         int sum = 0;
 
@@ -17,14 +17,14 @@ public class Program {
         return sum;
     }
 
-    public static boolean isPrime(int number){
+    private static boolean isPrime(int number){
 
         boolean isPrime = true;
         double squareRout = 0;
         int i = 0;
 
         if (number <= 1){
-            System.out.println("IllegalArgument");
+            System.err.println("IllegalArgument");
             System.exit(-1);
         }
 
